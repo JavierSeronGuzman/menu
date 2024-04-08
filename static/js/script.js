@@ -28,6 +28,32 @@ const spacing = 0.1,    // espaciado de las tarjetas (escalonamiento)
     end: "+=3000",
     pin: ".gallery"
   });
+  const spacing2 = 0.1,    // espaciado de las tarjetas (escalonamiento)
+  snap2 = gsap.utils.snap(spacing), // lo usaremos para ajustar la cabeza de reproducción en seamlessLoop
+  cards2 = gsap.utils.toArray('.cardstexto li'),
+  seamlessLoop2 = buildSeamlessLoop(cards2, spacing2),
+  scrub2 = gsap.to(seamlessLoop2, { // reutilizamos este tween para ajustar suavemente la cabeza de reproducción en seamlessLoop
+    totalTime: 0,
+    duration: 0.5,
+    ease: "power3",
+    paused: true
+  }),
+  trigger2 = ScrollTrigger.create({
+    start: 0,
+    onUpdate(self) {
+      if (self.progress === 1 && self.direction > 0 && !self.wrapping) {
+        // wrapForward(self);
+      } else if (self.progress < 1e-5 && self.direction < 0 && !self.wrapping) {
+        // wrapBackward(self);
+      } else {
+        scrub2.vars.totalTime = snap((iteration + self.progress) * seamlessLoop2.duration());
+        scrub2.invalidate().restart(); // para mejorar el rendimiento, simplemente invalidamos y reiniciamos el mismo tween. No es necesario sobrescribir o crear un nuevo tween en cada actualización.
+        self.wrapping = false;
+      }
+    },
+    end: "+=3000",
+    pin: ".gallery"
+  });
 
 // function wrapForward(trigger) { // cuando ScrollTrigger llega al final, vuelve al principio sin problemas
 //   iteration++;
