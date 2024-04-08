@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú con Desplazamiento Vertical</title>
+<link rel="stylesheet" type="text/css" href="static/styles.css">
+</head>
+<body>
+    <div class="gallery">
+        <ul class="cards">
+          <li style="background-image: url('static/diversidaddesuelo.png');" onclick="hola(1)"></li>
+          <li style="background-image: url('static/educacion.png');" onclick="hola(2)"></li>
+          <li style="background-image: url('static/proximidadcultura.png');"onclick="hola(3)"></li>
+          <li style="background-image: url('static/poblacion.png');"onclick="hola(4)"></li>
+          <li style="background-image: url('static/parques.png');"onclick="hola(6)"></li>
+          <li style="background-image: url('static/plazas.png');"onclick="hola(7)"></li>
+          <li style="background-image: url('static/aprovisionamiento.png');"onclick="hola(8)"></li>
+          <li style="background-image: url('static/comercio.png');"onclick="hola(9)"></li>
+          <li style="background-image: url('static/edificacion.png');"onclick="hola(10)"></li>
+          <li style="background-image: url('static/salud.png');"onclick="hola(11)"></li>
+
+
+        </ul>
+        <div class="actions">
+
+        </div>
+      </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/ScrollTrigger.min.js"></script>
+<script src="static/js/script.js"></script>
+<script>
+
+    async function hola(num){
+        var url = 'http://192.168.31.120:8500//api/set_map_type/';
+        url += '?map_type=' + num;
+                    fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Ocurrió un error al enviar los datos.');
+                        }
+                        return response.json(); // Devuelve la respuesta del servidor en formato JSON
+                    })
+                    .then(data => {
+                        console.log('Respuesta del servidor:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error); 
+                    });
+    }
+</script>
+</body>
+</html>
