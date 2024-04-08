@@ -22,32 +22,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .cardstexto {
-    position: absolute;
-    width: 14rem;
-    height: 18rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+
   
   .cards li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 14rem;
-    height: 18rem;
-    text-align: center;
-    line-height: 18rem;
-    font-size: 2rem;
-    font-family: sans-serif;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 0.8rem;
-    background-size: cover;
-  }
-  .cardstexto li {
     color: white; /* Color del texto blanco */
     font-weight: bold; /* Texto más grueso */
     list-style: none;
@@ -56,7 +33,7 @@
     width: 14rem;
     height: 18rem;
     text-align: center;
-    line-height: 18rem;
+    line-height: 30rem;
     font-size: 2rem;
     font-family: sans-serif;
     position: absolute;
@@ -65,6 +42,7 @@
     border-radius: 0.8rem;
     background-size: cover;
   }
+  
   
   .actions {
     position: absolute;

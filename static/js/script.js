@@ -28,61 +28,7 @@ const spacing = 0.1,    // espaciado de las tarjetas (escalonamiento)
     end: "+=3000",
     pin: ".gallery"
   });
-  const spacing2 = 0.1,    // espaciado de las tarjetas (escalonamiento)
-  snap2 = gsap.utils.snap(spacing), // lo usaremos para ajustar la cabeza de reproducción en seamlessLoop
-  cards2 = gsap.utils.toArray('.cardstexto li'),
-  seamlessLoop2 = buildSeamlessLoop(cards2, spacing2),
-  scrub2 = gsap.to(seamlessLoop2, { // reutilizamos este tween para ajustar suavemente la cabeza de reproducción en seamlessLoop
-    totalTime: 0,
-    duration: 0.5,
-    ease: "power3",
-    paused: true
-  }),
-  trigger2 = ScrollTrigger.create({
-    start: 0,
-    onUpdate(self) {
-      if (self.progress === 1 && self.direction > 0 && !self.wrapping) {
-        // wrapForward(self);
-      } else if (self.progress < 1e-5 && self.direction < 0 && !self.wrapping) {
-        // wrapBackward(self);
-      } else {
-        scrub2.vars.totalTime = snap((iteration + self.progress) * seamlessLoop2.duration());
-        scrub2.invalidate().restart(); // para mejorar el rendimiento, simplemente invalidamos y reiniciamos el mismo tween. No es necesario sobrescribir o crear un nuevo tween en cada actualización.
-        self.wrapping = false;
-      }
-    },
-    end: "+=3000",
-    pin: ".gallery"
-  });
-
-// function wrapForward(trigger) { // cuando ScrollTrigger llega al final, vuelve al principio sin problemas
-//   iteration++;
-//   trigger.wrapping = true;
-//   trigger.scroll(trigger.start + 1);
-// }
-
-// function wrapBackward(trigger) { // cuando ScrollTrigger vuelve a comenzar (en reversa), vuelve al final sin problemas
-//   iteration--;
-//   if (iteration < 0) { // para evitar que la cabeza de reproducción se detenga al principio, saltamos 10 iteraciones hacia adelante
-//     iteration = 9;
-//     seamlessLoop.totalTime(seamlessLoop.totalTime() + seamlessLoop.duration() * 10);
-//     scrub.pause(); // de lo contrario, puede actualizar totalTime justo antes de que se actualice el trigger, lo que hace que el valor inicial sea diferente de lo que acabamos de establecer arriba.
-//   }
-//   trigger.wrapping = true;
-//   trigger.scroll(trigger.end - 1);
-// }
-
-// function scrubTo(totalTime) { // mueve la posición de desplazamiento al lugar que corresponde al valor totalTime de seamlessLoop, y envuelve si es necesario.
-//   let progress = (totalTime - seamlessLoop.duration() * iteration) / seamlessLoop.duration();
-//   if (progress > 1) {
-//     wrapForward(trigger);
-//   } else if (progress < 0) {
-//     wrapBackward(trigger);
-//   } else {
-//     trigger.scroll(trigger.start + progress * (trigger.end - trigger.start));
-//   }
-// }
-
+  
 function buildSeamlessLoop(items, spacing) {
   let overlap = Math.ceil(1 / spacing), // número de animaciones EXTRA a cada lado del inicio / fin para acomodar el bucle continuo
     startTime = items.length * spacing + 0.5, // el tiempo en rawSequence en el que comenzaremos el bucle sin problemas
