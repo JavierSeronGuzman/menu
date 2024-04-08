@@ -29,33 +29,33 @@ const spacing = 0.1,    // espaciado de las tarjetas (escalonamiento)
     pin: ".gallery"
   });
 
-function wrapForward(trigger) { // cuando ScrollTrigger llega al final, vuelve al principio sin problemas
-  iteration++;
-  trigger.wrapping = true;
-  trigger.scroll(trigger.start + 1);
-}
+// function wrapForward(trigger) { // cuando ScrollTrigger llega al final, vuelve al principio sin problemas
+//   iteration++;
+//   trigger.wrapping = true;
+//   trigger.scroll(trigger.start + 1);
+// }
 
-function wrapBackward(trigger) { // cuando ScrollTrigger vuelve a comenzar (en reversa), vuelve al final sin problemas
-  iteration--;
-  if (iteration < 0) { // para evitar que la cabeza de reproducción se detenga al principio, saltamos 10 iteraciones hacia adelante
-    iteration = 9;
-    seamlessLoop.totalTime(seamlessLoop.totalTime() + seamlessLoop.duration() * 10);
-    scrub.pause(); // de lo contrario, puede actualizar totalTime justo antes de que se actualice el trigger, lo que hace que el valor inicial sea diferente de lo que acabamos de establecer arriba.
-  }
-  trigger.wrapping = true;
-  trigger.scroll(trigger.end - 1);
-}
+// function wrapBackward(trigger) { // cuando ScrollTrigger vuelve a comenzar (en reversa), vuelve al final sin problemas
+//   iteration--;
+//   if (iteration < 0) { // para evitar que la cabeza de reproducción se detenga al principio, saltamos 10 iteraciones hacia adelante
+//     iteration = 9;
+//     seamlessLoop.totalTime(seamlessLoop.totalTime() + seamlessLoop.duration() * 10);
+//     scrub.pause(); // de lo contrario, puede actualizar totalTime justo antes de que se actualice el trigger, lo que hace que el valor inicial sea diferente de lo que acabamos de establecer arriba.
+//   }
+//   trigger.wrapping = true;
+//   trigger.scroll(trigger.end - 1);
+// }
 
-function scrubTo(totalTime) { // mueve la posición de desplazamiento al lugar que corresponde al valor totalTime de seamlessLoop, y envuelve si es necesario.
-  let progress = (totalTime - seamlessLoop.duration() * iteration) / seamlessLoop.duration();
-  if (progress > 1) {
-    wrapForward(trigger);
-  } else if (progress < 0) {
-    wrapBackward(trigger);
-  } else {
-    trigger.scroll(trigger.start + progress * (trigger.end - trigger.start));
-  }
-}
+// function scrubTo(totalTime) { // mueve la posición de desplazamiento al lugar que corresponde al valor totalTime de seamlessLoop, y envuelve si es necesario.
+//   let progress = (totalTime - seamlessLoop.duration() * iteration) / seamlessLoop.duration();
+//   if (progress > 1) {
+//     wrapForward(trigger);
+//   } else if (progress < 0) {
+//     wrapBackward(trigger);
+//   } else {
+//     trigger.scroll(trigger.start + progress * (trigger.end - trigger.start));
+//   }
+// }
 
 function buildSeamlessLoop(items, spacing) {
   let overlap = Math.ceil(1 / spacing), // número de animaciones EXTRA a cada lado del inicio / fin para acomodar el bucle continuo

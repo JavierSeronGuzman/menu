@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card" id="myCard">
+        <!-- Card content goes here -->
+    </div>
+
+    <!-- Include GSAP via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <!-- Your JavaScript code with GSAP -->
+    <script>
+        // Function to get card width
+        function getCardWidth() {
+            // Get a reference to the card element
+            var card = document.getElementById("myCard");
+
+            // Get the width of the card using GSAP's utility function
+            var cardWidth = gsap.getProperty(card, "width");
+
+            // Output the width to the console
+            console.log("Card width:", cardWidth);
+        }
+
+        // Call the function when the page is fully loaded
+        window.onload = function() {
+            getCardWidth();
+        };
+    </script>
+</body>
+</html>
